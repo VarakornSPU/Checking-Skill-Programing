@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบสุ่มเลขหวย</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input, button { padding: 8px; margin: 10px; font-size: 16px; }
+        .result { font-weight: bold; font-size: 20px; }
+        input.invalid { border: 2px solid red; }
+        input.valid { border: 2px solid green; }
+        ul { text-align: left; margin-top: 20px; }
+        li { margin-bottom: 5px; }
+        .correct { color: green; }
+        .incorrect { color: red; }
+    </style>
+</head>
+<body>
+
+    <h1>ระบบสุ่มเลขหวย</h1>
+    
+    <div>
+        <label for="lotteryNumber">ทายเลข 6 หลัก: </label>
+        <input type="number" id="lotteryNumber" min="100000" max="999999" maxlength="6" required>
+        <button onclick="checkLottery()">ทายเลข</button>
+        <button onclick="resetLottery()">Lottery ใหม่</button>
+        <button onclick="revealLottery()">เฉลยเลข</button>
+    </div>
+    
+    <div id="result" class="result"></div>
+
+    <!-- แสดงรายการทายเลขที่ผิดและทายถูก -->
+    <div>
+        <ul id="lotteryGuesses"></ul>
+    </div>
+
+    <script>
+        // ฟังก์ชันสุ่มเลข 6 หลัก
+        function generateLotteryNumber() {
+            return Math.floor(Math.random() * 900000) + 100000; // สุ่มเลข 6 หลัก
+        }
+
+        // ฟังก์ชันสุ่มเลขใหม่ (เลขหวย)
+        function resetLottery() {
+            lotteryNumber = generateLotteryNumber(); // สุ่มเลขใหม่
+            console.log("เลขหวยที่สุ่มออก (สำหรับทดสอบ): " + lotteryNumber);
+            document.getElementById("result").innerHTML = "";
+            document.getElementById("lotteryNumber").value = ""; // เคลียร์ช่องกรอกเลข
+            document.getElementById("lotteryNumber").classList.remove('valid', 'invalid'); // ลบคลาสสีจากกรอบ
+            document.getElementById("lotteryGuesses").innerHTML = ""; // เคลียร์รายการทายผิด/ถูก
+            lotteryGuesses = []; // เคลียร์รายการทาย
+        }
+
+        // เลขหวยที่สุ่มออก
+        let lotteryNumber = generateLotteryNumber();
+        
+        // แสดงเลขหวยใน Console ก่อนที่จะให้ผู้ใช้ทาย
+        console.log("เลขหวยที่สุ่มออก (สำหรับทดสอบ): " + lotteryNumber);
+
+        // รายการทายเลข
+        let lotteryGuesses = [];
+
+        // ฟังก์ชันทายเลขและตรวจสอบ
+        function checkLottery() {
+            let userGuess = document.getElementById("lotteryNumber").value;
+
+            if (userGuess.length !== 6 || isNaN(userGuess)) {
+                document.getElementById("result").innerHTML = "กรุณากรอกเลข 6 หลัก";
+                document.getElementById("lotteryNumber").classList.add('invalid');
+                document.getElementById("lotteryNumber").classList.remove('valid');
+                return;
+            }
+
+            // ตรวจสอบว่าตรงกับเลขที่สุ่มออกหรือไม่
+            let listItem = document.createElement("li");
+            if (parseInt(userGuess) === lotteryNumber) {
+                document.getElementById("result").innerHTML = `คุณทายถูกต้อง!`;
+                document.getElementById("result").classList.add('correct');
+                document.getElementById("result").classList.remove('incorrect');
+                listItem.textContent = `เลข ${userGuess} ถูก!`;
+                listItem.classList.add('correct'); // เพิ่มคลาสสีเขียว
+                listItem.classList.remove('incorrect');
+            } else {
+                document.getElementById("result").innerHTML = `คุณทายผิด!`;
+                document.getElementById("result").classList.add('incorrect');
+                document.getElementById("result").classList.remove('correct');
+                listItem.textContent = `เลข ${userGuess} ผิด!`;
+                listItem.classList.add('incorrect'); // เพิ่มคลาสสีแดง
+                listItem.classList.remove('correct');
+            }
+
+            // เพิ่มการทายที่ตำแหน่งแรกของรายการ
+            let lotteryGuessesList = document.getElementById("lotteryGuesses");
+            lotteryGuessesList.insertBefore(listItem, lotteryGuessesList.firstChild);
+
+            // เพิ่มการตรวจสอบความถูกต้องของ input
+            document.getElementById("lotteryNumber").classList.add('valid');
+            document.getElementById("lotteryNumber").classList.remove('invalid');
+
+            // เคลียร์เลขที่กรอก
+            document.getElementById("lotteryNumber").value = ""; 
+        }
+
+        // ฟังก์ชันเฉลยเลขหวย
+        function revealLottery() {
+            document.getElementById("result").innerHTML = `เลขหวยที่สุ่มออกคือ ${lotteryNumber}`;
+        }
+
+        // ฟังก์ชันตรวจสอบการกรอกเลขให้ครบ 6 หลัก
+        document.getElementById("lotteryNumber").addEventListener("input", function() {
+            let inputField = document.getElementById("lotteryNumber");
+            if (inputField.value.length === 6) {
+                inputField.classList.add('valid');
+                inputField.classList.remove('invalid');
+            } else {
+                inputField.classList.remove('valid');
+                inputField.classList.add('invalid');
+            }
+        });
+    </script>
+
+</body>
+</html>

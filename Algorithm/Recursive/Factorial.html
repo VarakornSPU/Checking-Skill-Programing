@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorial & Fibonacci</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Factorial & Fibonacci Calculator</h1>
+    <p>กรอกตัวเลขแล้วกดปุ่มเพื่อคำนวณ</p>
+    
+    <input type="number" id="numberInput" min="0" placeholder="ใส่เลข">
+    <br>
+    <button onclick="calculateFactorial()">คำนวณ Factorial</button>
+    <button onclick="calculateFibonacci()">คำนวณ Fibonacci</button>
+    
+    <p id="result">ผลลัพธ์จะแสดงตรงนี้...</p>
+
+    <script>
+        // ฟังก์ชันคำนวณ Factorial
+        function factorial(n) {
+            if (n === 0 || n === 1) {
+                return 1;
+            }
+            return n * factorial(n - 1);
+        }
+
+        // ฟังก์ชันคำนวณ Fibonacci (ใช้ Memoization เพื่อให้เร็วขึ้น)
+        //Memoization คือการใช้ Object หรือ Array เป็นตัวช่วยจำค่า ที่เคยคำนวณไว้แล้ว
+        //เมื่อมีการเรียกซ้ำ จะใช้ค่าที่จำไว้ แทนการคำนวณใหม่
+        function fibonacciMemo(n, memo = {}) {
+            if (n in memo) {
+                return memo[n];
+            }
+            if (n === 0) {
+                return 0;
+            }
+            if (n === 1) {
+                return 1;
+            }
+            memo[n] = fibonacciMemo(n - 1, memo) + fibonacciMemo(n - 2, memo);
+            return memo[n];
+        }
+
+        // ฟังก์ชันคำนวณ Factorial และแสดงผล
+        function calculateFactorial() {
+            let num = parseInt(document.getElementById("numberInput").value);
+            if (isNaN(num) || num < 0) {
+                document.getElementById("result").innerHTML = "กรุณากรอกเลขจำนวนเต็มที่มากกว่าหรือเท่ากับ 0";
+                return;
+            }
+            let factResult = factorial(num);
+            document.getElementById("result").innerHTML = `Factorial(${num}) = ${factResult}`;
+        }
+
+        // ฟังก์ชันคำนวณ Fibonacci และแสดงผล
+        function calculateFibonacci() {
+            let num = parseInt(document.getElementById("numberInput").value);
+            if (isNaN(num) || num < 0) {
+                document.getElementById("result").innerHTML = "กรุณากรอกเลขจำนวนเต็มที่มากกว่าหรือเท่ากับ 0";
+                return;
+            }
+            let fibResult = fibonacciMemo(num);
+            document.getElementById("result").innerHTML = `Fibonacci(${num}) = ${fibResult}`;
+        }
+    </script>
+
+</body>
+</html>

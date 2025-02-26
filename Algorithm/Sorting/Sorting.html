@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selection Sort</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Selection Sort Example</h1>
+    <button onclick="sortArray()">เริ่มการเรียงลำดับ</button>
+    <p id="result"></p>
+
+    <script>
+        // ฟังก์ชันการเรียงลำดับ Selection Sort
+        function selectionSort(arr) {
+            let n = arr.length;
+
+            for (let i = 0; i < n - 1; i++) {
+                let minIndex = i;
+
+                // ค้นหาค่าที่เล็กที่สุดในช่วงที่เหลือ
+                for (let j = i + 1; j < n; j++) {
+                    if (arr[j] < arr[minIndex]) {
+                        minIndex = j;
+                    }
+                }
+
+                // สลับค่าที่ตำแหน่ง i กับตำแหน่งที่มีค่าน้อยที่สุด
+                if (minIndex !== i) {
+                    let temp = arr[i];
+                    arr[i] = arr[minIndex];
+                    arr[minIndex] = temp;
+                }
+            }
+
+            return arr;
+        }
+
+        // ฟังก์ชันสร้าง Array ขนาด 100 ช่องและเรียงลำดับ
+        function sortArray() {
+            let randomArray = [];
+
+            // สร้าง Array ขนาด 100 ช่องที่มีตัวเลขแบบสุ่ม
+            for (let i = 0; i < 100; i++) {
+                randomArray.push(Math.floor(Math.random() * 1000));  // ตัวเลขสุ่มระหว่าง 0 ถึง 999
+            }
+
+            // แสดงผลอาร์เรย์ก่อนการเรียงลำดับ
+            let originalArray = randomArray.slice();  // คัดลอกอาร์เรย์เพื่อเก็บอาร์เรย์เดิม
+            let originalArrayString = originalArray.join(", ");
+
+            // เรียงลำดับ Array ด้วย Selection Sort
+            let sortedArray = selectionSort(randomArray);
+
+            // แสดงผลลัพธ์
+            document.getElementById("result").innerHTML = `
+                <strong>อาร์เรย์ก่อนการเรียงลำดับ:</strong><br> ${originalArrayString} <br><br>
+                <strong>อาร์เรย์หลังการเรียงลำดับ:</strong><br> ${sortedArray.join(", ")}
+            `;
+        }
+    </script>
+
+</body>
+</html>

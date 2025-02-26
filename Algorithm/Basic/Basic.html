@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณพื้นที่วงกลม</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>คำนวณพื้นที่วงกลม</h1>
+
+    <label for="radius">กรุณากรอกค่ารัศมี (radius): </label>
+    <input type="number" id="radius" placeholder="รัศมี" required>
+    <button onclick="calculateArea()">คำนวณพื้นที่</button>
+
+    <p id="result"></p>
+
+    <script>
+        function calculateArea() {
+            // รับค่ารัศมีจากผู้ใช้
+            let radius = document.getElementById("radius").value;
+
+            // ตรวจสอบค่ารัศมี
+            if (radius <= 0) {
+                document.getElementById("result").innerText = "กรุณากรอกค่ารัศมีที่มากกว่า 0";
+                return;
+            }
+
+            // กำหนดค่า PI
+            const PI = 3.14159;
+
+            // คำนวณพื้นที่วงกลม
+            let area = PI * radius * radius;
+
+            // แสดงผลลัพธ์
+            document.getElementById("result").innerText = "พื้นที่วงกลมคือ: " + area.toFixed(2) + " ตารางหน่วย";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging & Error Handling</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input { padding: 5px; margin: 10px; }
+        button { padding: 7px; cursor: pointer; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+    <h2>ทดสอบ Error Handling</h2>
+    <label>ป้อนตัวเลขที่ต้องการหาร: </label>
+    <input type="text" id="num1">
+    
+    <label>ป้อนตัวเลขตัวหาร: </label>
+    <input type="text" id="num2">
+    
+    <button onclick="calculate()">คำนวณ</button>
+    
+    <p id="result"></p>
+
+    <script>
+        function calculate() {
+            let num1 = document.getElementById("num1").value;
+            let num2 = document.getElementById("num2").value;
+            let resultBox = document.getElementById("result");
+
+            try {
+                console.log("ค่าที่รับมา:", num1, num2); // Debugging
+
+                // แปลงค่าเป็นตัวเลข
+                num1 = parseFloat(num1);
+                num2 = parseFloat(num2);
+
+                // ตรวจสอบว่าผู้ใช้กรอกค่าที่ถูกต้องหรือไม่
+                if (isNaN(num1) || isNaN(num2)) {
+                    throw new Error("กรุณากรอกตัวเลขให้ถูกต้อง");
+                }
+                if (num2 === 0) {
+                    throw new Error("ห้ามหารด้วยศูนย์!");
+                }
+
+                // คำนวณผลลัพธ์
+                let result = num1 / num2;
+                console.log("ผลลัพธ์:", result); // Debugging
+                resultBox.innerHTML = `ผลลัพธ์: ${result.toFixed(2)}`;
+                resultBox.classList.remove("error");
+
+            } catch (error) {
+                console.error("พบข้อผิดพลาด:", error.message); // Debugging
+                resultBox.innerHTML = `<span class="error">${error.message}</span>`;
+            } finally {
+                console.log("การคำนวณเสร็จสิ้น ✅");
+            }
+        }
+    </script>
+
+</body>
+</html>

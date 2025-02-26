@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รับค่าจากผู้ใช้ไปเรื่อยๆ จนกว่าผู้ใช้จะพิมพ์ "exit"</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>รับค่าจากผู้ใช้ไปเรื่อยๆ</h1>
+    <label for="userInput">กรุณากรอกข้อมูล: </label>
+    <input type="text" id="userInput" placeholder="กรอกข้อความ">
+    <button onclick="collectInput()">ส่งข้อมูล</button>
+
+    <p id="result"></p>
+
+    <script>
+        function collectInput() {
+            let userInput = document.getElementById("userInput").value;
+            let resultText = "";
+
+            // ถ้าผู้ใช้พิมพ์ "exit" ให้หยุด
+            while (userInput.toLowerCase() !== "exit") {
+                resultText += "คุณกรอก: " + userInput + "<br>";
+                userInput = prompt("กรุณากรอกข้อมูล (พิมพ์ 'exit' เพื่อหยุด):");
+            }
+
+            resultText += "โปรแกรมหยุดแล้ว";
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+
+</body>
+</html>

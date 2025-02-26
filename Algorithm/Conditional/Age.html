@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตรวจสอบช่วงอายุ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ตรวจสอบช่วงอายุ</h1>
+
+    <label for="age">กรุณากรอกอายุของคุณ: </label>
+    <input type="number" id="age" placeholder="อายุ" required>
+    <button onclick="checkAge()">ตรวจสอบ</button>
+
+    <p id="result"></p>
+
+    <script>
+        function checkAge() {
+            let age = document.getElementById("age").value;
+            let resultText = "";
+
+            if (age < 18) {
+                resultText = "เด็ก";
+            } else if (age >= 18 && age < 30) {
+                resultText = "วัยรุ่น";
+            } else {
+                resultText = "ผู้ใหญ่";
+            }
+
+            document.getElementById("result").innerText = "คุณเป็น: " + resultText;
+        }
+    </script>
+
+</body>
+</html>

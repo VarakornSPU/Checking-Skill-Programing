@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตรวจสอบเลขคู่หรือเลขคี่</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ตรวจสอบเลขคู่หรือเลขคี่</h1>
+
+    <label for="number">กรุณากรอกเลข: </label>
+    <input type="number" id="number" placeholder="เลข" required>
+    <button onclick="checkEvenOdd()">ตรวจสอบ</button>
+
+    <p id="result"></p>
+
+    <script>
+        function checkEvenOdd() {
+            let number = document.getElementById("number").value;
+            let resultText = "";
+
+            if (number % 2 === 0) {
+                resultText = "เลขคู่";
+            } else {
+                resultText = "เลขคี่";
+            }
+
+            document.getElementById("result").innerText = "ผลลัพธ์: " + resultText;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input, button { padding: 8px; margin: 5px; }
+        label { font-size: 18px; }
+        .result { font-weight: bold; font-size: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>Student Grade Calculator</h1>
+    
+    <form id="gradeForm">
+        <div>
+            <label>CSI101 คะแนน: </label>
+            <input type="number" id="score1" min="0" max="100" required>
+        </div>
+        <div>
+            <label>CSI102 คะแนน: </label>
+            <input type="number" id="score2" min="0" max="100" required>
+        </div>
+        <div>
+            <label>CSI203 คะแนน: </label>
+            <input type="number" id="score3" min="0" max="100" required>
+        </div>
+        <div>
+            <label>CSI204 คะแนน: </label>
+            <input type="number" id="score4" min="0" max="100" required>
+        </div>
+        <div>
+            <label>CSI305 คะแนน: </label>
+            <input type="number" id="score5" min="0" max="100" required>
+        </div>
+        
+        <button type="button" onclick="calculateGPA()">คำนวณ GPA</button>
+    </form>
+    
+    <div id="result" class="result"></div>
+
+    <script>
+        // ฟังก์ชันแปลงคะแนนเป็นเกรด
+        function getGrade(score) {
+            if (score >= 80) {
+                return 4; // เกรด 4
+            } else if (score >= 70) {
+                return 3; // เกรด 3
+            } else if (score >= 60) {
+                return 2; // เกรด 2
+            } else if (score >= 50) {
+                return 1; // เกรด 1
+            } else {
+                return 0; // เกรด 0
+            }
+        }
+
+        // ฟังก์ชันคำนวณ GPA
+        function calculateGPA() {
+            // รับคะแนนจากผู้ใช้
+            let score1 = parseFloat(document.getElementById("score1").value);
+            let score2 = parseFloat(document.getElementById("score2").value);
+            let score3 = parseFloat(document.getElementById("score3").value);
+            let score4 = parseFloat(document.getElementById("score4").value);
+            let score5 = parseFloat(document.getElementById("score5").value);
+
+            // ตรวจสอบว่าเป็นค่าตัวเลขที่ถูกต้องหรือไม่
+            if (isNaN(score1) || isNaN(score2) || isNaN(score3) || isNaN(score4) || isNaN(score5)) {
+                document.getElementById("result").innerHTML = "กรุณากรอกคะแนนให้ครบถ้วน";
+                return;
+            }
+
+            // แปลงคะแนนเป็นเกรด
+            let grade1 = getGrade(score1);
+            let grade2 = getGrade(score2);
+            let grade3 = getGrade(score3);
+            let grade4 = getGrade(score4);
+            let grade5 = getGrade(score5);
+
+            // หน่วยกิตของแต่ละวิชา
+            const credits = [2, 2, 2, 2, 2];
+
+            // คำนวณคะแนนรวมที่ได้จากการคูณเกรดกับหน่วยกิต
+            let totalPoints = (grade1 * credits[0]) + (grade2 * credits[1]) + (grade3 * credits[2]) +
+                              (grade4 * credits[3]) + (grade5 * credits[4]);
+
+            // คำนวณหน่วยกิตรวม
+            let totalCredits = credits.reduce((a, b) => a + b, 0);
+
+            // คำนวณ GPA
+            let GPA = totalPoints / totalCredits;
+
+            // แสดงผลลัพธ์
+            document.getElementById("result").innerHTML = `GPA: ${GPA.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>

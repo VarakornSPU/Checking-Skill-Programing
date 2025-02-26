@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฟอร์มรับข้อมูลและตรวจสอบอีเมล</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>แบบฟอร์มรับข้อมูล</h1>
+
+    <form id="userForm" onsubmit="return validateForm()">
+        <div>
+            <label for="name">ชื่อ: </label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="email">อีเมล: </label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <button type="submit">ส่งข้อมูล</button>
+        </div>
+    </form>
+
+    <p id="errorMessage" class="error"></p>
+
+    <script>
+        function validateForm() {
+            // รับค่าจากฟอร์ม
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let errorMessage = document.getElementById("errorMessage");
+
+            // ตรวจสอบว่าอีเมลมี @ และ .com หรือไม่
+            if (email.indexOf("@") === -1 || email.indexOf(".com") === -1) {
+                errorMessage.innerText = "อีเมลต้องมี '@' และ '.com'";
+                return false;  // หยุดการส่งฟอร์ม
+            }
+
+            // ถ้าทุกอย่างถูกต้อง
+            errorMessage.innerText = "";
+            alert("ข้อมูลที่ได้รับ: \nชื่อ: " + name + "\nอีเมล: " + email);
+            return true;  // ส่งฟอร์มได้
+        }
+    </script>
+
+</body>
+</html>
