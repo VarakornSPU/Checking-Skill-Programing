@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลบค่าใน Array</title>
+    <script>
+        let arr = [];
+
+        function addNumber() {
+            const input = document.getElementById('inputNumber').value;
+            if(input) {
+                arr.push(Number(input));
+                document.getElementById('inputNumber').value = ''; // เคลียร์ input
+                displayArray(); // อัพเดทการแสดงผล
+            }
+        }
+
+        function removeFirst() {
+            arr.shift(); // ลบค่าตัวหน้าสุดออกจาก array
+            displayArray(); // อัพเดทการแสดงผล
+        }
+
+        function removeLast() {
+            arr.pop(); // ลบค่าตัวหลังสุดออกจาก array
+            displayArray(); // อัพเดทการแสดงผล
+        }
+
+        function displayArray() {
+            document.getElementById('arrayDisplay').innerText = 'Array: ' + arr.join(', ');
+        }
+    </script>
+</head>
+<body>
+    <h1>การจัดการ Array</h1>
+    
+    <label for="inputNumber">เพิ่มตัวเลข: </label>
+    <input type="number" id="inputNumber">
+    <button onclick="addNumber()">เพิ่ม</button>
+
+    <h2>Array:</h2>
+    <p id="arrayDisplay">Array: </p>
+
+    <button onclick="removeFirst()">ลบตัวหน้าสุด</button>
+    <button onclick="removeLast()">ลบตัวหลังสุด</button>
+</body>
+</html>

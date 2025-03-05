@@ -47,10 +47,16 @@
         function getGrade(score) {
             if (score >= 80) {
                 return 4; // เกรด 4
-            } else if (score >= 70) {
+            } else if (score >= 75) {
+                return 3.5; // เกรด 3.5
+            }else if (score >= 70) {
                 return 3; // เกรด 3
+            } else if (score >= 65) {
+                return 2.5; // เกรด 2.5
             } else if (score >= 60) {
                 return 2; // เกรด 2
+            } else if (score >= 55) {
+                return 1.5; // เกรด 1.5
             } else if (score >= 50) {
                 return 1; // เกรด 1
             } else {

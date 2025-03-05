@@ -36,3 +36,7 @@ li {
     border: none;
     cursor: pointer;
 }
+.completed {
+    text-decoration: line-through; /* ขีดทับข้อความที่ทำเสร็จแล้ว */
+    color: gray;
+}

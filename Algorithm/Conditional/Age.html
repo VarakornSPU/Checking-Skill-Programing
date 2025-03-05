@@ -32,9 +32,12 @@
             let age = document.getElementById("age").value;
             let resultText = "";
 
-            if (age < 18) {
+            if ( age <= 0){ 
+                resultText = "ต้องใส่อายุที่ไม่ติดลบ";
+            } else if (age < 18){
                 resultText = "เด็ก";
-            } else if (age >= 18 && age < 30) {
+            }
+             else if (age >= 18 && age < 30) {
                 resultText = "วัยรุ่น";
             } else {
                 resultText = "ผู้ใหญ่";
